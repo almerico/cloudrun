@@ -28,20 +28,35 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 public class HelloworldApplication {
 
-  @Value("${NAME:World}")
-  String name;
+    @Value("${NAME:World}")
+    String name;
+    String version = " Version 7";
 
-  @RestController
-  class HelloworldController {
-    @GetMapping("/")
-    String hello() {
-      return "Hello " + name + "! Version 4";
+    @RestController
+    class HelloworldController {
+
+        @GetMapping("/")
+        String hello() {
+            return "Hello " + name + " " + version;
+        }
+
+        @GetMapping("/200")
+        String say200() {
+            System.out.println("{\"logging.googleapis.com/labels\":{\"myCustomLabel\":\"200\"},\"httpRequest\":{\"requestMethod\":\"GET\"},\"severity\":\"DEBUG\"}");
+            return "200 " + name + " " + version;
+        }
+
+        @GetMapping("/500")
+        String say500() throws Exception {
+            System.out.println("{\"labels\":{\"myCustomLabel\":\"500\"},\"httpRequest\":{\"requestMethod\":\"GET\"},\"severity\":\"ERROR\"}");
+            throw new Exception("500" + version);
+        }
     }
-  }
 
-  public static void main(String[] args) {
-    SpringApplication.run(HelloworldApplication.class, args);
-  }
+    public static void main(String[] args) {
+        SpringApplication.run(HelloworldApplication.class,
+                              args);
+    }
 }
 // [END run_helloworld_service]
 // [END cloudrun_helloworld_service]
