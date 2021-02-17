@@ -5,7 +5,7 @@ resource "google_cloud_run_service" "default" {
   template {
     spec {
       containers {
-        image = "gcr.io/oleksii-sandbox/helloworld:0.7"
+        image = "gcr.io/oleksii-sandbox/alertcloudrun:0.1 "
       }
     }
   }
