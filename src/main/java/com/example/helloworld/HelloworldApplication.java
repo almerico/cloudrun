@@ -28,9 +28,9 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 public class HelloworldApplication {
 
-    @Value("${NAME:World}")
+    @Value("${NAME:aletring test}")
     String name;
-    String version = " Version 7";
+    String version = " Version 8";
 
     @RestController
     class HelloworldController {
@@ -51,6 +51,13 @@ public class HelloworldApplication {
             System.out.println("{\"labels\":{\"myCustomLabel\":\"500\"},\"httpRequest\":{\"requestMethod\":\"GET\"},\"severity\":\"ERROR\"}");
             throw new Exception("500" + version);
         }
+        @GetMapping("/delay")
+        String delay() throws Exception {
+            System.out.println("{\"labels\":{\"myCustomLabel\":\"delay\"},\"httpRequest\":{\"requestMethod\":\"GET\"},\"severity\":\"ERROR\"}");
+            Thread.sleep(3000);
+            return "delay " + name + " " + version;
+        }
+
     }
 
     public static void main(String[] args) {
