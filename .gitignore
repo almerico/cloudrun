@@ -29,3 +29,7 @@ hs_err_pid*
 .settings/
 
 target/classes/
+
+.idea/.name
+
+.idea/

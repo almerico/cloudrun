@@ -42,7 +42,7 @@ public class HelloworldApplication {
 
         @GetMapping("/200")
         String say200() {
-            System.out.println("{\"logging.googleapis.com/labels\":{\"myCustomLabel\":\"200\"},\"httpRequest\":{\"requestMethod\":\"GET\"},\"severity\":\"DEBUG\"}");
+            System.out.println("{\"severity\": \"NOTICE\", \"message\": \"This is the default display field.\", \"component\": \"arbitrary-property\", \"logging.googleapis.com/labels\": {\"user_label_1\": \"value_1\"}}");
             return "200 " + name + " " + version;
         }
 
@@ -57,6 +57,7 @@ public class HelloworldApplication {
             Thread.sleep(3000);
             return "delay " + name + " " + version;
         }
+
 
     }
 
