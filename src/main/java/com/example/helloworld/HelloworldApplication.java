@@ -19,11 +19,28 @@
 
 package com.example.helloworld;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+
+import com.google.cloud.storage.Blob;
+import com.google.cloud.storage.BucketInfo;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.google.api.gax.paging.Page;
+import com.google.auth.appengine.AppEngineCredentials;
+import com.google.auth.oauth2.ComputeEngineCredentials;
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.cloud.storage.Bucket;
+import com.google.cloud.storage.Storage;
+import com.google.cloud.storage.StorageOptions;
+import com.google.common.collect.Lists;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 @SpringBootApplication
 public class HelloworldApplication {
@@ -57,10 +74,19 @@ public class HelloworldApplication {
             Thread.sleep(3000);
             return "delay " + name + " " + version;
         }
-
+        @GetMapping("/createblob")
+        String blobFromByteArray (@RequestParam String name) throws IOException {
+            return createBlobFromByteArray("TestBlob",name);
+        }
 
     }
+    String createBlobFromByteArray(String blobName,  String bucketName) throws IOException {
 
+        Storage storage = StorageOptions.newBuilder().build().getService();
+        Bucket bucket = storage.create(BucketInfo.of(bucketName));
+        Blob blob = bucket.create(blobName, "Test Data ".getBytes(UTF_8), "text/plain");
+        return "blobname"+blobName+"  "+ "buketname "+bucketName + "created";
+    }
     public static void main(String[] args) {
         SpringApplication.run(HelloworldApplication.class,
                               args);
