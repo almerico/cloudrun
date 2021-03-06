@@ -1,4 +1,4 @@
-# Cloud Run Hello World Sample
+# Cloud Run Sample
 
 This sample shows how to deploy a Hello World [Spring Boot](https://spring.io/projects/spring-boot)
 application to Cloud Run.
