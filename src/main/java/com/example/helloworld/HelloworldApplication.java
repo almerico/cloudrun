@@ -78,7 +78,6 @@ public class HelloworldApplication {
         String blobFromByteArray (@RequestParam String name) throws IOException {
             return createBlobFromByteArray("TestBlob",name);
         }
-
     }
     String createBlobFromByteArray(String blobName,  String bucketName) throws IOException {
 

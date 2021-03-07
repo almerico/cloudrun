@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apitest
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: apitest
+  template:
+    metadata:
+      labels:
+        app: apitest
+    spec:
+      serviceAccountName: build-robot
+      automountServiceAccountToken: false
+      containers:
+      - name: apitest
+        ports:
+        - containerPort: 8080
+        image: gcr.io/oleksii-sandbox/alertcloudrun:0.4
+        env:
+            - name: "GOOGLE_APPLICATION_CREDENTIALS"
+              value: "/var/run/secret/cloud.google.com/oleksii-sandbox-4bf0fb00e74c.json"
+            - name: "PROJECT_ID"
+              valueFrom:
+                configMapKeyRef:
+                  name: build-robot
+                  key: project-id
+        volumeMounts:
+            - name: "service-account"
+              mountPath: "/var/run/secret/cloud.google.com"
+      volumes:
+        - name: "service-account"
+          secret:
+            secretName: "build-robot"
+
