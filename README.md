@@ -4,6 +4,7 @@ For creating buket
 https://cloudrun-srv-3poc2pq2oa-ue.a.run.app/createblob?name=zzz123456test 
 
 Useful Gloud commands
+```
 gcloud components update
 gcloud config set run/platform managed
 gcloud config set run/region us-east1
@@ -15,7 +16,7 @@ gcloud run services update  --platform managed service.yaml
 gcloud beta run  deploy --image gcr.io/oleksii-sandbox/helloworld:0.1
 gcloud beta run  deploy --image gcr.io/oleksii-sandbox/helloworld:0.2 --no-traffic --tag green
 gcloud beta run  services update-traffic helloworld --to-tags green=30
-
+```
 
 
 This sample shows how to deploy a Hello World [Spring Boot](https://spring.io/projects/spring-boot)
